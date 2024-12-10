@@ -16,8 +16,8 @@ app.use(bodyParser.json());
 
 // If you want more control, use the following CORS configuration
 const corsOptions = {
-  origin: 'http://localhost:3000/', // Replace with your frontend domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+  origin: 'http://localhost:3000', // Replace with your frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE' , 'PATCH'], // Allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 };
 app.use(cors(corsOptions));
