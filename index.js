@@ -1,24 +1,26 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Import CORS
+const cors = require('cors');
 const userRoutes = require('./src/routes/index');
-
-require('dotenv').config(); // Load environment variables
+const path = require('path');
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 4000;
 
-// Middleware
+// Static file serving for uploads inside src folder
+app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
+
+// Middleware setup
+app.use(express.json({ limit: "20mb" }));
+app.use(express.urlencoded({ limit: "20mb", extended: true }));
 app.use(bodyParser.json());
 
 // Enable CORS
-// app.use(cors()); // Default configuration allows all origins
-
-// If you want more control, use the following CORS configuration
 const corsOptions = {
-  origin: 'http://localhost:3000', // Replace with your frontend domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE' , 'PATCH'], // Allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+  origin: 'http://localhost:3000',  // Frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 app.use(cors(corsOptions));
 
